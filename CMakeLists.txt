@@ -5,4 +5,5 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(DavidsonEigensolver main.cpp
         src/davidson.cpp
-        src/davidson.h)
+        src/davidson.h
+        src/util.h)
