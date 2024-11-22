@@ -1,0 +1,23 @@
+fail_fast: false
+repos:
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: v1.3.5
+    hooks:
+      - id: clang-format
+        args: [ -i, --style=Google ]
+        files: \.(c|cc|cxx|cpp|h|hpp|hxx)$
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      #    -   id: check-yaml  ... both .codecov and .travis contain duplicate keys
+      - id: end-of-file-fixer
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.1.7
+    hooks:
+      - id: remove-crlf
+      - id: forbid-tabs
+        # MPQC output and JS/XML/CSS/CMake can contain tabs
+        exclude: \.(out|cmake|js|xml|css)$

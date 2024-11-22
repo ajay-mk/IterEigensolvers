@@ -21,5 +21,3 @@ if (TARGET tiledarray)
 else (TARGET tiledarray)
     message(FATAL_ERROR "did not find target tiledarray")
 endif (TARGET tiledarray)
-
-
