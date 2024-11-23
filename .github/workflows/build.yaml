@@ -1,0 +1,59 @@
+name: Linux/MacOS CI
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [Release]
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            cxx: g++
+          - os: macos-latest
+            cxx: clang++
+
+    name: ${{ matrix.os }} ${{ matrix.build_type }}
+    runs-on: ${{ matrix.os }}
+    env:
+      CXX: ${{ matrix.cxx }}
+      BUILD_CONFIG: >
+        -G Ninja
+        -DCMAKE_PREFIX_PATH='/usr/local/opt/boost'
+        -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create build directory
+        run: cmake -E make_directory ${{github.workspace}}/build
+
+      - name: Install Prerequisite - MacOS
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: brew install ninja boost eigen open-mpi ccache catch2 doxygen
+
+      - name: Install prerequisites - Ubuntu
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install ninja-build liblapack-dev libboost-dev libboost-locale-dev libboost-random-dev libboost-regex-dev libeigen3-dev openmpi-bin libopenmpi-dev ccache doxygen
+
+      - name: Configure CMake
+        shell: bash
+        working-directory: ${{github.workspace}}/build
+        run: cmake $GITHUB_WORKSPACE $BUILD_CONFIG
+
+      - name: Build project
+        working-directory: ${{github.workspace}}/build
+        shell: bash
+        run: cmake --build .
+
+      - name: Run tests
+        working-directory: ${{github.workspace}}/build
+        shell: bash
+        run: |
+          cmake --build . --target unit_test
+          cd tests
+          ctest -V --output-on-failure
