@@ -15,7 +15,11 @@ add_executable(solver main.cpp
         itersolvers/davidson.cpp
         itersolvers/davidson.h
         itersolvers/util.h
-        itersolvers/meta.h)
+        itersolvers/meta.h
+        itersolvers/solver.cpp
+        itersolvers/solver.h)
+
+include_directories(${CMAKE_SOURCE_DIR})
 
 if (TARGET tiledarray)
     target_link_libraries(solver PRIVATE tiledarray)
