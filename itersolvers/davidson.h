@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 
+namespace itersolvers {
 /// @brief Base class for iterative eigensolvers
 ///
 /// This class is the base class for the Davidson eigensolver. It provides the
@@ -50,6 +51,10 @@ class DavidsonLiu : public IterSolver {
  public:
   DavidsonLiu() = delete;
   ~DavidsonLiu() override = default;
+
+ private:
+  size_t n_roots_;
 };
+}  // namespace itersolvers
 
 #endif  // DAVIDSON_H

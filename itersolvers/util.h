@@ -5,8 +5,6 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-namespace util {
+namespace itersolvers::util {}  // namespace itersolvers::util
 
-} // namespace util
-
-#endif //UTIL_H
+#endif  // UTIL_H

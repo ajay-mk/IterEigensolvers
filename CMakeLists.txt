@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
-project(IterEigensolvers LANGUAGES CXX)
+project(IterativeEigensolvers LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -12,9 +12,10 @@ include(CMakePackageConfigHelpers)
 include(cmake/FindOrFetchTiledArray.cmake)
 
 add_executable(solver main.cpp
-        src/davidson.cpp
-        src/davidson.h
-        src/util.h)
+        itersolvers/davidson.cpp
+        itersolvers/davidson.h
+        itersolvers/util.h
+        itersolvers/meta.h)
 
 if (TARGET tiledarray)
     target_link_libraries(solver PRIVATE tiledarray)
