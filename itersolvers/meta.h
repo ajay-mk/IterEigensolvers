@@ -46,12 +46,12 @@ concept is_numeric = std::is_arithmetic_v<T> || requires(T t) {
 template <typename T>
 constexpr bool is_numeric_v = is_numeric<T>;
 
-/// @brief Concept to check if T is a scalar type (numeric but not a complex).
+/// @brief Concept to check if T is a numeric but not a complex type.
 /// @tparam T a type
 template <typename T>
-concept is_scalar = is_numeric<T> && !requires(T t) {
-  { std::complex<T>{} };
-};
+concept is_scalar =
+    std::is_arithmetic_v<T> &&
+    !std::is_same_v<std::remove_cv_t<T>, std::complex<std::remove_cv_t<T>>>;
 
 /// an alias for is_scalar<T>::value
 template <typename T>

@@ -11,6 +11,9 @@ include(CMakePackageConfigHelpers)
 # Bring in TA
 include(cmake/FindOrFetchTiledArray.cmake)
 
+option(BUILD_TESTING "Build tests" ON)
+add_feature_info(Testing BUILD_TESTING "Build tests")
+
 add_executable(solver main.cpp
         itersolvers/davidson.cpp
         itersolvers/davidson.h
@@ -26,3 +29,8 @@ if (TARGET tiledarray)
 else (TARGET tiledarray)
     message(FATAL_ERROR "did not find target tiledarray")
 endif (TARGET tiledarray)
+
+# testing
+if (BUILD_TESTING)
+    add_subdirectory(tests)
+endif (BUILD_TESTING)
