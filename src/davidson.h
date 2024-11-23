@@ -35,10 +35,16 @@ class IterSolver {
   }
 };
 
+/// @brief Base class for preconditioners
+class Preconditioner {
+ public:
+  Preconditioner() = default;
+  virtual ~Preconditioner() = default;
+};
+
 /// @brief Davidson eigensolver
 ///
 /// Implements the Davidson-Liu eigensolver for computing the lowest eigenvalues
-
 template <typename MatrixType>
 class DavidsonLiu : public IterSolver {
  public:
