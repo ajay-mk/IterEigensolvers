@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        build_type: [Release]
+        build_type: [Release, Debug]
         os: [ubuntu-latest, macos-latest]
         include:
           - os: ubuntu-latest
@@ -15,7 +15,7 @@ jobs:
           - os: macos-latest
             cxx: clang++
 
-    name: ${{ matrix.os }} ${{ matrix.build_type }}
+    name: "${{ matrix.os }}: ${{ matrix.build_type }}"
     runs-on: ${{ matrix.os }}
     env:
       CXX: ${{ matrix.cxx }}
@@ -44,6 +44,7 @@ jobs:
         shell: bash
         working-directory: ${{github.workspace}}/build
         run: cmake $GITHUB_WORKSPACE $BUILD_CONFIG
+        # setup ccache later
 
       - name: Build project
         working-directory: ${{github.workspace}}/build
