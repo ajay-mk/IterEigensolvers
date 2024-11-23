@@ -25,9 +25,14 @@ class IterSolver {
   }
 
   /// @brief return eigenvalues
-  virtual void eigenvalues() { throw std::runtime_error("Not implemented"); }
+  virtual void eigenvalues() const {
+    throw std::runtime_error("Not implemented");
+  }
+
   /// @brief return eigenvectors
-  virtual void eigenvectors() { throw std::runtime_error("Not implemented"); }
+  virtual void eigenvectors() const {
+    throw std::runtime_error("Not implemented");
+  }
 };
 
 /// @brief Davidson eigensolver
